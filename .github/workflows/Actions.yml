@@ -25,4 +25,4 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Exeecute TDA Job
-        run: echo "Hello World!"
+        run: curl =X GET https://presales.testinsights.io:443/api/apikey/qveP5Ml1Xvr1NP0MkEXv_9fBF/job/2456
