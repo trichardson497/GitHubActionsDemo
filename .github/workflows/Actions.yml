@@ -26,11 +26,57 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      # - name: Run a one-line script
+      #  run: echo Hello, world!
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Exeecute TDA Job
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          curl -X POST "https://presales.testinsights.io:443/api/apikey/qveP5Ml1Xvr1NP0MkEXv_9fBF/job" \
+          -H "Content-Type: application/json" \
+          {
+	"jobType": "VIPAutoExecutionJob",
+	"projectId": 100003,
+	"vipAutomationJobSettings": {
+		"testSuiteId": null,
+		"testPaths": null,
+		"machineKey": "EC2AMAZ-0L04NIQ",
+		"serverProfileId": 2,
+		"serverProcessId": 536,
+		"automationType": "Generate Accounts for current user",
+		"scope": "Global",
+		"automationParameters": [
+			{
+				"var": "parUserID",
+				"paramIndex": 1,
+				"value": null
+			},
+			{
+				"var": "parAccountType",
+				"paramIndex": 2,
+				"value": "Individual Savings"
+			},
+			{
+				"var": "parTargetConnectionID",
+				"paramIndex": 3,
+				"value": "1"
+			},
+			{
+				"var": "paritem_account_number_seq_",
+				"paramIndex": 4,
+				"value": "1"
+			},
+			{
+				"var": "parExportCSV_account_",
+				"paramIndex": 5,
+				"value": "false"
+			},
+			{
+				"var": "parExportCSV_account_number_seq_",
+				"paramIndex": 6,
+				"value": "false"
+			}
+		],
+		"sharedJobServer": false
+	}
+}
