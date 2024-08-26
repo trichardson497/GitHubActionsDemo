@@ -1,0 +1,45 @@
+{
+	"jobType": "VIPAutoExecutionJob",
+	"projectId": 100003,
+	"vipAutomationJobSettings": {
+		"testSuiteId": null,
+		"testPaths": null,
+		"machineKey": "EC2AMAZ-0L04NIQ",
+		"serverProfileId": 2,
+		"serverProcessId": 536,
+		"automationType": "Generate Accounts for current user",
+		"scope": "Global",
+		"automationParameters": [
+			{
+				"var": "parUserID",
+				"paramIndex": 1,
+				"value": null
+			},
+			{
+				"var": "parAccountType",
+				"paramIndex": 2,
+				"value": "Individual Savings"
+			},
+			{
+				"var": "parTargetConnectionID",
+				"paramIndex": 3,
+				"value": "1"
+			},
+			{
+				"var": "paritem_account_number_seq_",
+				"paramIndex": 4,
+				"value": "1"
+			},
+			{
+				"var": "parExportCSV_account_",
+				"paramIndex": 5,
+				"value": "false"
+			},
+			{
+				"var": "parExportCSV_account_number_seq_",
+				"paramIndex": 6,
+				"value": "false"
+			}
+		],
+		"sharedJobServer": false
+	}
