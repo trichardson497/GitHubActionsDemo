@@ -196,7 +196,7 @@ if __name__ == "__main__":
         # Parameters
         user_id = 71  # User ID to create accounts for
         account_type = "Individual Savings"  # Account type
-        num_accounts = 1  # Number of accounts to create
+        num_accounts = 10  # Number of accounts to create
 
         # Submit job
         job_id = submit_job(user_id, account_type, num_accounts)
