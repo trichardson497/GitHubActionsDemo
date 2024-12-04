@@ -53,3 +53,6 @@ htmlcov/
 # Temporary files
 *.tmp
 *.temp
+
+# Outputs folder for temporary job results
+outputs/
