@@ -1,0 +1,55 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environment
+.venv/
+venv/
+ENV/
+env/
+*.env
+
+# pipenv environment files
+Pipfile
+Pipfile.lock
+
+# Poetry
+poetry.lock
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode settings (optional, if using VSCode)
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# pyenv
+.python-version
+
+# pytest cache
+.pytest_cache/
+
+# Coverage reports
+htmlcov/
+*.cover
+*.coverage
+.cache
+.nosync
+
+# PyCharm project files
+.idea/
+
+# Logs
+*.log
+*.out
+*.err
+
+# Temporary files
+*.tmp
+*.temp
