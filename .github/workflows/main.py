@@ -35,7 +35,7 @@ def submit_job(user_id, account_type, num_accounts):
                 {"var": "parAccountType", "paramIndex": 2, "value": account_type},
                 {"var": "parTargetConnectionID", "paramIndex": 3, "value": "1"},
                 {"var": "paritem_account_number_seq_", "paramIndex": 4, "value": num_accounts},
-                {"var": "parExportCSV_account_", "paramIndex": 5, "value": "false"},
+                {"var": "parExportCSV_account_", "paramIndex": 5, "value": "true"},
                 {"var": "parExportCSV_account_number_seq_", "paramIndex": 6, "value": "false"}
             ],
             "sharedJobServer": False
