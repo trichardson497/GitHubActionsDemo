@@ -188,7 +188,6 @@ def extract_and_list_ids(zip_path, target_csv_column="id"):
         print(f"An error occurred: {e}")
 
 
-# Main Execution
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Submit job and retrieve results")
     parser.add_argument("--user_id", type=int, default=71, help="User ID to create accounts for (default: 71)")
@@ -230,8 +229,14 @@ if __name__ == "__main__":
 
         # Extract and list IDs from the downloaded ZIP file
         ids = extract_and_list_ids(save_path, target_csv_column="id")
+
+        # Write IDs to GITHUB_OUTPUT
         if ids:
-            print(f"::set-output name=created_ids::{','.join(map(str, ids))}")
+            print(f"Created the following account IDs: {', '.join(map(str, ids))}")
+            output_file = os.getenv("GITHUB_OUTPUT")
+            if output_file:
+                with open(output_file, "a") as f:
+                    f.write(f"created_ids={','.join(map(str, ids))}\n")
 
     finally:
         # Clean up the output directory
