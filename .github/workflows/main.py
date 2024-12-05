@@ -239,7 +239,6 @@ if __name__ == "__main__":
             if os.getenv('GITHUB_OUTPUT'):
                 with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
                     print(f'created_ids={ids_str}', file=fh)
-            print(f"::set-output name=created_ids::{ids_str}")
 
     finally:
         # Clean up the output directory
