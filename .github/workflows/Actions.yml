@@ -34,7 +34,7 @@ jobs:
           pip install -r .github/workflows/requirements.txt
 
       - name: Execute Python Script
-        id: execute
+        id: create_accounts
         run: |
           python .github/workflows/main.py \
             --user_id ${{ github.event.inputs.user_id }} \
@@ -43,6 +43,4 @@ jobs:
 
       - name: Output Created IDs
         run: |
-          echo "Created IDs: ${{ steps.execute.outputs.created_ids }}"
-        env:
-          created_ids: ${{ steps.execute.outputs.created_ids }}
+          echo "The following IDs were created: ${{ steps.create_accounts.outputs.created_ids }}"

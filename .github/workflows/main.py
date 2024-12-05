@@ -157,6 +157,7 @@ def download_result_data(result_id, save_path="job_result.zip"):
 def extract_and_list_ids(zip_path, target_csv_column="id"):
     """
     Extracts a ZIP file, finds the CSV, and lists the values of the specified column.
+    Returns a list of IDs if found, None otherwise.
     """
     try:
         extract_dir = os.path.join(OUTPUT_DIR, "extracted")
@@ -177,19 +178,20 @@ def extract_and_list_ids(zip_path, target_csv_column="id"):
                     if target_csv_column in df.columns:
                         ids = df[target_csv_column].to_list()
                         print(f"Created the following account IDs: {', '.join(map(str, ids))}")
-                        return
+                        return ids
                     else:
                         print(f"Column '{target_csv_column}' not found in CSV.")
-                        return
+                        return None
 
         print("No CSV file found in the extracted folder.")
+        return None
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="Submit job and retrieve results")
     parser.add_argument("--user_id", type=int, default=71, help="User ID to create accounts for (default: 71)")
     parser.add_argument("--account_type", type=str, default="Individual Savings", help="Type of account to create (default: 'Individual Savings')")
@@ -223,7 +225,7 @@ if __name__ == "__main__":
             print("Result ID not found in the job result response.")
             exit(1)
 
-        # Download and save job result data as a zip file using the result ID
+        # Download and save job result data
         save_path = download_result_data(result_id, save_path="job_result.zip")
         if not save_path:
             exit(1)
@@ -233,11 +235,11 @@ if __name__ == "__main__":
 
         # Write IDs to GITHUB_OUTPUT
         if ids:
-            print(f"Created the following account IDs: {', '.join(map(str, ids))}")
-            output_file = os.getenv("GITHUB_OUTPUT")
-            if output_file:
-                with open(output_file, "a") as f:
-                    f.write(f"created_ids={','.join(map(str, ids))}\n")
+            ids_str = ','.join(map(str, ids))
+            if os.getenv('GITHUB_OUTPUT'):
+                with open(os.environ['GITHUB_OUTPUT'], 'a') as fh:
+                    print(f'created_ids={ids_str}', file=fh)
+            print(f"::set-output name=created_ids::{ids_str}")
 
     finally:
         # Clean up the output directory
