@@ -21,14 +21,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.12
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r .github/workflows/requirements.txt
+
       - name: Execute Python Script
         id: execute
         run: |
@@ -36,6 +39,10 @@ jobs:
             --user_id ${{ github.event.inputs.user_id }} \
             --account_type "${{ github.event.inputs.account_type }}" \
             --num_accounts ${{ github.event.inputs.num_accounts }}
+        # Add outputs section to capture IDs
+        outputs:
+          created_ids: ${{ steps.execute.outputs.created_ids }}
+
       - name: Output Created IDs
         run: |
           echo "Created IDs: ${{ steps.execute.outputs.created_ids }}"

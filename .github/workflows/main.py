@@ -189,6 +189,7 @@ def extract_and_list_ids(zip_path, target_csv_column="id"):
 
 
 if __name__ == "__main__":
+
     parser = argparse.ArgumentParser(description="Submit job and retrieve results")
     parser.add_argument("--user_id", type=int, default=71, help="User ID to create accounts for (default: 71)")
     parser.add_argument("--account_type", type=str, default="Individual Savings", help="Type of account to create (default: 'Individual Savings')")
