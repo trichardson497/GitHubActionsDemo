@@ -19,6 +19,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -39,10 +40,9 @@ jobs:
             --user_id ${{ github.event.inputs.user_id }} \
             --account_type "${{ github.event.inputs.account_type }}" \
             --num_accounts ${{ github.event.inputs.num_accounts }}
-        # Add outputs section to capture IDs
-        outputs:
-          created_ids: ${{ steps.execute.outputs.created_ids }}
 
       - name: Output Created IDs
         run: |
           echo "Created IDs: ${{ steps.execute.outputs.created_ids }}"
+        env:
+          created_ids: ${{ steps.execute.outputs.created_ids }}
