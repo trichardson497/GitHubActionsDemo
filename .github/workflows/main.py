@@ -1,3 +1,4 @@
+import argparse
 import shutil
 import requests
 import json
@@ -189,42 +190,48 @@ def extract_and_list_ids(zip_path, target_csv_column="id"):
 
 # Main Execution
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Submit job and retrieve results")
+    parser.add_argument("--user_id", type=int, default=71, help="User ID to create accounts for (default: 71)")
+    parser.add_argument("--account_type", type=str, default="Individual Savings", help="Type of account to create (default: 'Individual Savings')")
+    parser.add_argument("--num_accounts", type=int, default=10, help="Number of accounts to create (default: 10)")
+    args = parser.parse_args()
+
     try:
         # Ensure output directory exists
         ensure_output_directory()
 
-        # Parameters
-        user_id = 71  # User ID to create accounts for
-        account_type = "Individual Savings"  # Account type
-        num_accounts = 10  # Number of accounts to create
+        # Use provided or default parameters
+        print(f"Using user_id: {args.user_id}, account_type: {args.account_type}, num_accounts: {args.num_accounts}")
 
         # Submit job
-        job_id = submit_job(user_id, account_type, num_accounts)
+        job_id = submit_job(args.user_id, args.account_type, args.num_accounts)
         if not job_id:
-            exit()
+            exit(1)
 
         # Poll job status
         if not poll_job_status(job_id):
-            exit()
+            exit(1)
 
         # Retrieve job result
         result_data = retrieve_job_result(job_id)
         if not result_data:
-            exit()
+            exit(1)
 
         # Extract result ID from the retrieved result data
         result_id = result_data.get("id")
         if not result_id:
             print("Result ID not found in the job result response.")
-            exit()
+            exit(1)
 
         # Download and save job result data as a zip file using the result ID
         save_path = download_result_data(result_id, save_path="job_result.zip")
         if not save_path:
-            exit()
+            exit(1)
 
         # Extract and list IDs from the downloaded ZIP file
-        extract_and_list_ids(save_path, target_csv_column="id")
+        ids = extract_and_list_ids(save_path, target_csv_column="id")
+        if ids:
+            print(f"::set-output name=created_ids::{','.join(map(str, ids))}")
 
     finally:
         # Clean up the output directory
