@@ -8,10 +8,13 @@ import os
 import pandas as pd
 
 # Common Configuration
-API_KEY = "qveP5Ml1Xvr1NP0MkEXv_9fBF"  # TODO: Load from environment variable
+API_KEY = os.getenv("API_KEY")  # Load API Key from environment variable
+if not API_KEY:
+    raise ValueError("API_KEY environment variable is not set!")
+
 BASE_URL = f"https://presales.testinsights.io/api/apikey/{API_KEY}"
 HEADERS = {"Content-Type": "application/json"}
-OUTPUT_DIR = "outputs"  # Directory for saving downloaded files
+OUTPUT_DIR = "outputs"
 
 
 def ensure_output_directory():
