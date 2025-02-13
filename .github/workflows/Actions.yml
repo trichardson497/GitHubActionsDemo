@@ -35,6 +35,8 @@ jobs:
 
       - name: Execute Python Script
         id: create_accounts
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
         run: |
           python .github/workflows/main.py \
             --user_id ${{ github.event.inputs.user_id }} \
